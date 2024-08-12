@@ -5,42 +5,176 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Your Token</title>
     <style>
-        /* Estilo básico */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #00ff84;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        form {
+            background-color: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #00ff84;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background-color: #262626;
+            color: #ffffff;
+            font-size: 1em;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #00ff84;
+            color: #121212;
+            padding: 15px 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #00cc6a;
+        }
+
+        button:disabled {
+            background-color: #666;
+            cursor: not-allowed;
+        }
+
+        /* Efecto para los inputs */
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #00ff84;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 132, 0.5);
+        }
     </style>
 </head>
 <body>
-    <h1>Create Your Token</h1>
     <form id="tokenForm">
+        <h1>Create Your Token</h1>
+        
         <label for="network">Choose Network:</label>
         <select id="network" required>
             <option value="ethereum">Ethereum</option>
             <option value="bsc">Binance Smart Chain</option>
             <option value="polygon">Polygon</option>
-        </select><br><br>
+            <option value="optimism">Optimism</option>
+            <option value="ronin">Ronin</option>
+        </select><br>
         
         <label for="name">Token Name:</label>
-        <input type="text" id="name" required><br><br>
+        <input type="text" id="name" required><br>
         
         <label for="symbol">Symbol:</label>
-        <input type="text" id="symbol" required><br><br>
+        <input type="text" id="symbol" required><br>
         
         <label for="supply">Total Supply:</label>
-        <input type="number" id="supply" required><br><br>
+        <input type="number" id="supply" required><br>
         
-        <label for="features">Select Features:</label><br>
+        <label>Select Features:</label><br>
         <input type="checkbox" id="minting" value="minting"> Minting<br>
-        <input type="checkbox" id="burning" value="burning"> Burning<br><br>
+        <input type="checkbox" id="burning" value="burning"> Burning<br>
         
         <p id="cost">Total Cost: $100 USD</p>
-        <button type="submit">Create Token</button>
+        <button type="submit" id="createTokenBtn">Create Token</button>
     </form>
 
+    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
     <script>
-        // JavaScript para manejar la lógica de la creación del token
-        document.getElementById('tokenForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // Lógica para conectar a la billetera y desplegar el contrato
-        });
+        const tokenForm = document.getElementById('tokenForm');
+        const costElement = document.getElementById('cost');
+        const createTokenBtn = document.getElementById('createTokenBtn');
+        
+        tokenForm.addEventListener('change', updateCost);
+        tokenForm.addEventListener('submit', createToken);
+
+        function updateCost() {
+            let cost = 100;
+            if (document.getElementById('burning').checked) cost += 100;
+            if (document.getElementById('minting').checked) cost += 100;
+            costElement.textContent = `Total Cost: $${cost} USD`;
+        }
+
+        async function createToken(event) {
+            event.preventDefault();
+            
+            if (!window.ethereum) {
+                alert("Please install MetaMask to use this feature.");
+                return;
+            }
+
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            const network = document.getElementById('network').value;
+            const name = document.getElementById('name').value;
+            const symbol = document.getElementById('symbol').value;
+            const supply = document.getElementById('supply').value;
+            const minting = document.getElementById('minting').checked;
+            const burning = document.getElementById('burning').checked;
+
+            // Aquí iría la lógica para crear y desplegar el contrato con Solidity
+            // Esto puede incluir la compilación del contrato y el despliegue a través de ethers.js
+            // Por ejemplo, utilizando una ABI y bytecode predefinido
+
+            try {
+                await ethereum.request({ method: 'eth_requestAccounts' });
+
+                // Ejemplo de creación del contrato (simplificado)
+                const factory = new ethers.ContractFactory(/* ABI */, /* Bytecode */, signer);
+                const contract = await factory.deploy(name, symbol, supply, minting, burning);
+
+                alert(`Token created successfully! Contract Address: ${contract.address}`);
+            } catch (error) {
+                console.error(error);
+                alert('Error creating token. Please try again.');
+            }
+        }
     </script>
 </body>
 </html>
