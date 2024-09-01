@@ -22,91 +22,26 @@
 
         h1 {
             text-align: center;
-            font-size: 3em;
+            font-size: 2.5em;
             margin-bottom: 20px;
             text-shadow: 2px 2px 0px #ff00ff, 4px 4px 0px #0000ff;
-            color: #00ff84;
         }
 
-        nav {
-            width: 100%;
-            max-width: 600px;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        nav a {
-            color: #00ff84;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.2em;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        nav a:hover {
-            color: #ff00ff;
-            transform: scale(1.1);
-        }
-
-        .dashboard {
+        form {
             background-color: #121212;
             padding: 20px;
             border-radius: 10px;
             width: 100%;
-            max-width: 600px;
+            max-width: 500px;
             box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
             animation: fadeIn 1s ease-in-out;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .dashboard h2 {
-            color: #ff00ff;
-            font-size: 2em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 0px #00ff84, 4px 4px 0px #0000ff;
-        }
-
-        .section {
-            width: 100%;
-            margin-bottom: 20px;
-            padding: 15px;
-            background-color: #1e1e2e;
-            border-radius: 8px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.7);
-            color: #ffffff;
-        }
-
-        .section h3 {
-            font-size: 1.5em;
-            margin-bottom: 10px;
-            color: #ff00ff;
-        }
-
-        .section p {
-            font-size: 1.1em;
-            color: #00ff84;
-        }
-
-        .form-section {
-            width: 100%;
-        }
-
-        form {
-            background-color: #1e1e2e;
-            padding: 20px;
-            border-radius: 10px;
-            width: 100%;
-            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
         }
 
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
-            color: #ff00ff;
+            color: #00ff84;
         }
 
         input[type="text"],
@@ -151,19 +86,37 @@
             border-radius: 5px;
             cursor: pointer;
             width: 100%;
-            transition: background-color 0.3s, transform 0.3s;
-            box-shadow: 0px 5px 15px rgba(0, 255, 132, 0.5);
+            transition: background-color 0.3s, transform 0.2s;
         }
 
         button:hover {
             background-color: #00cc6a;
-            transform: translateY(-5px);
-            box-shadow: 0px 10px 20px rgba(0, 255, 132, 0.7);
+            transform: scale(1.05);
         }
 
         button:disabled {
             background-color: #666;
             cursor: not-allowed;
+        }
+
+        /* Estilo del menú */
+        nav {
+            width: 100%;
+            max-width: 500px;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        nav a {
+            color: #00ff84;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #ff00ff;
         }
 
         /* Animaciones */
@@ -182,37 +135,28 @@
         <a href="#addLiquidity">Add Liquidity</a>
     </nav>
 
-    <div class="dashboard">
-        <h2>Dashboard</h2>
-        <div class="section">
-            <h3>Overview</h3>
-            <p>Manage your contracts and tokens in one place. Explore and add liquidity to your tokens, and view your contract statistics.</p>
-        </div>
-        <div class="form-section">
-            <form id="tokenForm">
-                <h3>Create Your Token</h3>
-                
-                <label for="network">Network: Optimism</label>
-                <input type="hidden" id="network" value="optimism"><br>
-                
-                <label for="name">Token Name:</label>
-                <input type="text" id="name" required><br>
-                
-                <label for="symbol">Symbol:</label>
-                <input type="text" id="symbol" required><br>
-                
-                <label for="supply">Total Supply:</label>
-                <input type="number" id="supply" required><br>
-                
-                <label>Select Features:</label><br>
-                <input type="checkbox" id="minting" value="minting"> Minting<br>
-                <input type="checkbox" id="burning" value="burning"> Burning<br>
-                
-                <p id="cost">Total Cost: $100 USD</p>
-                <button type="submit" id="createTokenBtn">Create Token</button>
-            </form>
-        </div>
-    </div>
+    <form id="tokenForm">
+        <h1>Create Your Token</h1>
+        
+        <label for="network">Network: Optimism</label>
+        <input type="hidden" id="network" value="optimism"><br>
+        
+        <label for="name">Token Name:</label>
+        <input type="text" id="name" required><br>
+        
+        <label for="symbol">Symbol:</label>
+        <input type="text" id="symbol" required><br>
+        
+        <label for="supply">Total Supply:</label>
+        <input type="number" id="supply" required><br>
+        
+        <label>Select Features:</label><br>
+        <input type="checkbox" id="minting" value="minting"> Minting<br>
+        <input type="checkbox" id="burning" value="burning"> Burning<br>
+        
+        <p id="cost">Total Cost: $100 USD</p>
+        <button type="submit" id="createTokenBtn">Create Token</button>
+    </form>
 
     <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
     <script>
@@ -259,4 +203,6 @@
                 alert('Error creating token. Please try again.');
             }
         }
-    </
+    </script>
+</body>
+</html>
