@@ -76,6 +76,10 @@
             margin-top: 20px;
             text-align: center;
         }
+        #imagePreview {
+            border: 2px solid #00ff84;
+            border-radius: 5px;
+        }
 
         button {
             background-color: #00ff84;
@@ -129,12 +133,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <nav>
-        <a href="#findContract">Find Contract</a>
-        <a href="#viewGraphs">View Graphs</a>
-        <a href="#addLiquidity">Add Liquidity</a>
-    </nav>
-
+   
     <form id="tokenForm">
         <h1>Create Your Token</h1>
         
@@ -149,13 +148,26 @@
         
         <label for="supply">Total Supply:</label>
         <input type="number" id="supply" required><br>
+
+        <label for="tokenImage">Token Image:</label>
+        <input type="file" id="tokenImage" accept="image/*"><br>
+        <img id="imagePreview" src="#" alt="Image Preview" style="display:none; width: 100px; height: 100px; margin-bottom: 15px;">
+
         
         <label>Select Features:</label><br>
         <input type="checkbox" id="minting" value="minting"> Minting<br>
         <input type="checkbox" id="burning" value="burning"> Burning<br>
+
+      
+
         
         <p id="cost">Total Cost: $100 USD</p>
         <button type="submit" id="createTokenBtn">Create Token</button>
+           <nav>
+        <a href="#findContract">Find Contract</a>
+        <a href="#viewGraphs">View Graphs</a>
+        <a href="#addLiquidity">Add Liquidity</a>
+    </nav>
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
@@ -173,6 +185,19 @@
             if (document.getElementById('minting').checked) cost += 100;
             costElement.textContent = `Total Cost: $${cost} USD`;
         }
+        document.getElementById('tokenImage').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+                reader.onload = function(e) {
+            const imagePreview = document.getElementById('imagePreview');
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+        };
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+});
+
 
         async function createToken(event) {
             event.preventDefault();
