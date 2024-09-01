@@ -133,8 +133,13 @@ label {
     display: block;
     margin-bottom: 8px;
     font-weight: bold;
-    color: #00ff84;
+    color: #ff4d4d; /* Color rojo */
     font-size: 1.1em;
+}
+        label img {
+    margin-left: 10px; /* Espacio entre el texto y el ícono */
+    height: 20px; /* Tamaño del ícono, ajusta según sea necesario */
+    vertical-align: middle; /* Alinea el ícono con el texto */
 }
 
         p {
@@ -204,7 +209,10 @@ label {
     <form id="tokenForm">
         <h1>Create Your Token</h1>
         
-        <label for="network">Network: Optimism</label>
+<label for="network">
+    Network: Optimism
+    <img src="https://token-craft-three.vercel.app/op.png" alt="Optimism Icon">
+</label>
         <input type="hidden" id="network" value="optimism"><br>
         
         <label for="name">Token Name:</label>
