@@ -209,6 +209,24 @@ nav {
     overflow-x: auto; /* Permite el desplazamiento horizontal */
     white-space: nowrap; /* Evita que los elementos del menú se envuelvan en una nueva línea */
 }
+        nav .connect-wallet {
+    background-color: #00ff84;
+    color: #0d0d0d;
+    border: none;
+    padding: 10px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 0 15px;
+}
+
+nav .connect-wallet:hover {
+    background-color: #ff00ff;
+    color: #ffffff;
+    transform: scale(1.1);
+}
 
 nav a {
     color: #00ff84;
@@ -264,16 +282,16 @@ nav .links a {
 </head>
 <body>
   <div>
-      <nav>
+   <nav>
     <div class="links">
         <a href="#home">HOME</a>
         <a href="#tokens">TOKENS</a>
         <a href="#liquidity">LIQUIDITY</a>
         <a href="#contracts">CONTRACTS</a>
-        <a href="#connect">CONNECT</a>
-        <a href="#wallet">WALLET</a>
+        <button class="connect-wallet">CONNECT WALLET</button>
     </div>
 </nav>
+
 
     <form id="tokenForm">
         <h1>Create Your Token</h1>
