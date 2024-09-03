@@ -192,6 +192,7 @@ label {
 
         /* Estilo del menú */
        /* Estilo del menú */
+/* Estilos generales del menú */
 nav {
     position: fixed;
     top: 0;
@@ -205,6 +206,8 @@ nav {
     padding: 10px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
     z-index: 1000; /* Asegura que el menú esté siempre encima de otros elementos */
+    overflow-x: auto; /* Permite el desplazamiento horizontal */
+    white-space: nowrap; /* Evita que los elementos del menú se envuelvan en una nueva línea */
 }
 
 nav a {
@@ -230,11 +233,30 @@ nav .logo {
 nav .links {
     display: flex;
     align-items: center;
+    overflow-x: auto; /* Permite el desplazamiento horizontal en móviles */
 }
 
 nav .links a {
     margin: 0 10px;
 }
+
+/* Estilos específicos para móviles */
+@media (max-width: 768px) {
+    nav {
+        padding: 10px;
+    }
+
+    nav .links {
+        justify-content: flex-start;
+        width: auto;
+        flex-wrap: nowrap;
+    }
+
+    nav .logo {
+        margin-right: auto; /* Asegura que el logo esté a la izquierda y el resto se desplace */
+    }
+}
+
 
     </style>
     <!-- Fuente Google Criptopunk -->
