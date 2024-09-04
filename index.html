@@ -293,16 +293,35 @@ nav .links a {
     }
 }
          
-      .contract-item.highlight {
-            background-color: yellow; /* Resaltar con un fondo amarillo */
-            transition: background-color 0.5s ease-in-out;
-        }
-        .contract-item {
-            /* Otros estilos para contract-item */
-        }
-        .active {
-            background-color: green; /* Estilo para el botón activo */
-        }
+  .contract-item {
+    font-size: 12px; /* Tamaño de fuente más pequeño */
+    padding: 8px; /* Espaciado interno */
+    margin: 5px 0; /* Margen superior e inferior */
+    border-radius: 4px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde sutil */
+    background-color: #f9f9f9; /* Fondo claro */
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones suaves */
+}
+
+/* Estilo cuando el contract-item está resaltado */
+.contract-item.highlight {
+    background-color: #ffcc00; /* Fondo amarillo brillante */
+    color: #000; /* Texto negro para buen contraste */
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño */
+    border-color: #ffcc00; /* Color del borde coincide con el fondo */
+}
+
+/* Estilo para el botón activo */
+.active {
+    background-color: #28a745; /* Verde más vibrante para el botón activo */
+    color: #fff; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 10px 20px; /* Mayor padding */
+    font-size: 16px; /* Tamaño de fuente más grande */
+    border-radius: 8px; /* Bordes más redondeados */
+    cursor: pointer; /* Puntero para indicar que es clickeable */
+    transition: background-color 0.3s ease; /* Transición suave para el fondo */
+}
 
 
     </style>
