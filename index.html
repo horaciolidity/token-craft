@@ -243,6 +243,10 @@ nav .connect-wallet:hover {
     color: #ffffff;
     transform: scale(1.1);
 }
+         nav .connect-wallet.active {
+            background-color: #ff00ff;
+            color: #ffffff;
+        }
 
 nav a {
     color: #00ff84;
@@ -350,7 +354,7 @@ nav .links a {
 
 
     <script>
-         const providerOptions = {
+        const providerOptions = {
             /* Aquí puedes agregar opciones para diferentes proveedores de wallets si es necesario */
         };
 
@@ -370,6 +374,10 @@ nav .links a {
 
                 console.log("Connected address:", address);
                 alert("Connected address: " + address);
+
+                // Actualiza el texto y el estilo del botón
+                connectWalletButton.textContent = 'WEB3 ACTIVE';
+                connectWalletButton.classList.add('active');
 
                 // Aquí puedes manejar el resto de la lógica con la dirección conectada
             } catch (error) {
