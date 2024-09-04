@@ -292,6 +292,60 @@ nav .links a {
         margin-right: auto; /* Asegura que el logo esté a la izquierda y el resto se desplace */
     }
 }
+          .contract-history {
+            background-color: #2b2b3b;
+            padding: 20px;
+            border-radius: 10px;
+            width: 30%;
+            max-width: 300px;
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
+            margin-left: 20px;
+        }
+
+        .contract-history h2 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #ff00ff;
+        }
+
+        .contract-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: #1e1e2e;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .contract-item.highlight {
+            background-color: #00ff84;
+            color: #121212;
+        }
+
+        .contract-item p {
+            margin: 0;
+            font-size: 0.9em;
+        }
+
+        .contract-item span {
+            display: block;
+            font-size: 0.8em;
+            color: #cccccc;
+        }
+
+        @keyframes slideUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .contract-item.new {
+            animation: slideUp 0.5s ease-in-out;
+        }
 
 
     </style>
@@ -344,7 +398,15 @@ nav .links a {
         <button type="submit" id="createTokenBtn">Create Token</button>
          
     </form>
+      
+        <div class="contract-history">
+            <h2>Recent Contracts</h2>
+            <div id="contractsList">
+                <!-- Aquí se insertarán las direcciones -->
+            </div>
+        </div>
     </div>
+</main>
 </body>
     
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
@@ -380,6 +442,60 @@ nav .links a {
                     alert("MetaMask not found. Please install MetaMask.");
                 }
             });
+
+        const contractsList = document.getElementById('contractsList');
+        const randomAddresses = [
+            "0x1A2b3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T",
+            "0x9F8E7D6C5B4A3B2C1D0E9F8E7D6C5B4A3B2C1D0E",
+            "0x2B4C5D6E7F8G9H0I1J2K3L4M5N6O7P8Q9R0S1T2U",
+            "0x3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V",
+            "0x4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W",
+            "0x5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X",
+            "0x6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y",
+            "0x7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z",
+            "0x8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A",
+            "0x9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A8B"
+        ];
+
+        function addNewContract() {
+            // Crear un nuevo elemento para la dirección
+            const contractItem = document.createElement('div');
+            contractItem.className = 'contract-item new';
+
+            const randomAddress = randomAddresses[Math.floor(Math.random() * randomAddresses.length)];
+            const currentTime = new Date();
+            const formattedTime = `${currentTime.getHours()}:${String(currentTime.getMinutes()).padStart(2, '0')}`;
+            const formattedDate = currentTime.toLocaleDateString();
+
+            contractItem.innerHTML = `
+                <p>${randomAddress}</p>
+                <span>${formattedDate} ${formattedTime}</span>
+            `;
+
+            // Agregar la nueva dirección al inicio de la lista
+            contractsList.prepend(contractItem);
+
+            // Resaltar la nueva dirección
+            setTimeout(() => {
+                contractItem.classList.remove('new');
+                contractItem.classList.add('highlight');
+            }, 100);
+
+            // Eliminar el resaltado después de unos segundos
+            setTimeout(() => {
+                contractItem.classList.remove('highlight');
+            }, 3000);
+
+            // Limitar el número de direcciones en la lista a 5
+            while (contractsList.children.length > 5) {
+                contractsList.removeChild(contractsList.lastChild);
+            }
+        }
+
+        // Actualizar la lista cada 9 segundos
+        setInterval(addNewContract, 9000);
+
+            
         });
     </script>
 </body>
