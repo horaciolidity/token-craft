@@ -25,7 +25,7 @@ body {
     justify-content: center;
 }
 main {
-    margin-top: 100px; /* Ajusta según la altura de tu menú */
+    margin-top: 150px; /* Ajusta esto según la altura de tu menú y el título principal */
 }
         h1 {
             text-align: center;
@@ -444,46 +444,28 @@ nav .links a {
             "0x9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A8B"
         ];
 
-        function addNewContract() {
-            // Crear un nuevo elemento para la dirección
-            const contractItem = document.createElement('div');
-            contractItem.className = 'contract-item new';
+       function updateContract() {
+    const randomAddress = randomAddresses[Math.floor(Math.random() * randomAddresses.length)];
+    const currentTime = new Date();
+    const formattedTime = `${currentTime.getHours()}:${String(currentTime.getMinutes()).padStart(2, '0')}`;
+    const formattedDate = currentTime.toLocaleDateString();
 
-            const randomAddress = randomAddresses[Math.floor(Math.random() * randomAddresses.length)];
-            const currentTime = new Date();
-            const formattedTime = `${currentTime.getHours()}:${String(currentTime.getMinutes()).padStart(2, '0')}`;
-            const formattedDate = currentTime.toLocaleDateString();
+    contractItem.innerHTML = `
+        <p>${randomAddress}</p>
+        <span>${formattedDate} ${formattedTime}</span>
+    `;
 
-            contractItem.innerHTML = `
-                <p>${randomAddress}</p>
-                <span>${formattedDate} ${formattedTime}</span>
-            `;
+    // Resaltar la dirección
+    contractItem.classList.add('highlight');
 
-            // Agregar la nueva dirección al inicio de la lista
-            contractsList.prepend(contractItem);
+    // Eliminar el resaltado después de unos segundos
+    setTimeout(() => {
+        contractItem.classList.remove('highlight');
+    }, 3000);
+}
 
-            // Resaltar la nueva dirección
-            setTimeout(() => {
-                contractItem.classList.remove('new');
-                contractItem.classList.add('highlight');
-            }, 100);
-
-            // Eliminar el resaltado después de unos segundos
-            setTimeout(() => {
-                contractItem.classList.remove('highlight');
-            }, 3000);
-
-            // Limitar el número de direcciones en la lista a 5
-            while (contractsList.children.length > 5) {
-                contractsList.removeChild(contractsList.lastChild);
-            }
-        }
-
-        // Actualizar la lista cada 9 segundos
-        setInterval(addNewContract, 2000);
-
-            
-        });
+// Actualizar la dirección cada 9 segundos
+setInterval(updateContract, 4000);
     </script>
 </body>
 </html>
