@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Contratos - Optimism</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+section {
+    margin: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    width: 300px;
+    margin-right: 10px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+</style>
+
+    <header>
+        <h1>Buscador de Contratos en la Red Optimism</h1>
+        <nav>
+            <ul>
+                <li><a href="#contracts">Contracts</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="contracts">
+        <h2>Detalles del Contrato</h2>
+        <form id="contractForm">
+            <input type="text" id="contractAddress" placeholder="Dirección del contrato" required>
+            <button type="submit">Buscar</button>
+        </form>
+        <div id="contractDetails">
+            <!-- Aquí se mostrarán los detalles del contrato -->
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+
+</body>
+<script>
+document.getElementById("contractForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const contractAddress = document.getElementById("contractAddress").value;
+    fetchContractDetails(contractAddress);
+});
+
+async function fetchContractDetails(address) {
+    try {
+        const apiKey = 'TU_API_KEY_ETHERSCAN'; // Reemplaza con tu API key de Etherscan
+        const apiUrl = `https://api-optimistic.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`;
+        
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        if (data.status === "1") {
+            const contractDetails = data.result[0];
+            displayContractDetails(contractDetails);
+        } else {
+            document.getElementById("contractDetails").innerHTML = "No se encontraron detalles para este contrato.";
+        }
+    } catch (error) {
+        console.error('Error al obtener los detalles del contrato:', error);
+        document.getElementById("contractDetails").innerHTML = "Error al obtener los detalles del contrato.";
+    }
+}
+
+function displayContractDetails(details) {
+    const detailsHtml = `
+        <p><strong>Nombre:</strong> ${details.ContractName}</p>
+        <p><strong>Símbolo:</strong> ${details.Symbol}</p>
+        <p><strong>Total Supply:</strong> ${details.TotalSupply}</p>
+        <p><strong>Dirección del contrato:</strong> ${details.ContractAddress}</p>
+        <div id="chartContainer"><canvas id="chart"></canvas></div>
+    `;
+    document.getElementById("contractDetails").innerHTML = detailsHtml;
+    renderChart();
+}
+
+function renderChart() {
+    const ctx = document.getElementById('chart').getContext('2d');
+    new Chart(ctx, {
+        type: 'bar', 
+        data: {
+            labels: ['Ejemplo'], 
+            datasets: [{
+                label: 'Ejemplo de Chart',
+                data: [12],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+</script>
+</html>
