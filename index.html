@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+   
     <title>Create Your Token on Optimism</title>
     <style>
 /* Estilo General */
@@ -304,7 +304,7 @@ nav .links a {
         <a href="#tokens">TOKENS</a>
         <a href="#liquidity">LIQUIDITY</a>
         <a href="#contracts">CONTRACTS</a>
-        <button class="connect-wallet">CONNECT WALLET</button>
+        <button id="connect-wallet" class="connect-wallet">CONNECT WALLET</button>
     </div>
 </nav>
 
@@ -343,73 +343,39 @@ nav .links a {
          
     </form>
     </div>
+</body>
+     <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.2/dist/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
+
+
     <script>
-        const tokenForm = document.getElementById('tokenForm');
-        const costElement = document.getElementById('cost');
-        const createTokenBtn = document.getElementById('createTokenBtn');
-        
-        tokenForm.addEventListener('change', updateCost);
-        tokenForm.addEventListener('submit', createToken);
-
-        function updateCost() {
-            let cost = 100;
-            if (document.getElementById('burning').checked) cost += 100;
-            if (document.getElementById('minting').checked) cost += 100;
-            costElement.textContent = `Total Cost: $${cost} USD`;
-        }
-        document.getElementById('tokenImage').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const reader = new FileReader();
-                reader.onload = function(e) {
-            const imagePreview = document.getElementById('imagePreview');
-                imagePreview.src = e.target.result;
-                imagePreview.style.display = 'block';
+         const providerOptions = {
+            /* Aquí puedes agregar opciones para diferentes proveedores de wallets si es necesario */
         };
-    if (file) {
-        reader.readAsDataURL(file);
-    }
-});
-// Por ejemplo, para un menú móvil desplegable
-document.addEventListener('DOMContentLoaded', () => {
-    const menuButton = document.querySelector('#menuButton');
-    const menu = document.querySelector('#menu');
 
-    menuButton.addEventListener('click', () => {
-        menu.classList.toggle('active');
-    });
-});
+        const web3Modal = new Web3Modal.default({
+            cacheProvider: false, // Deja en false para evitar la caché
+            providerOptions // Opciones para diferentes carteras
+        });
 
-        async function createToken(event) {
-            event.preventDefault();
-            
-            if (!window.ethereum) {
-                alert("Please install MetaMask to use this feature.");
-                return;
-            }
+        const connectWalletButton = document.getElementById('connect-wallet');
 
-            const provider = new ethers.providers.Web3Provider(window.ethereum);
-            const signer = provider.getSigner();
-            const network = document.getElementById('network').value;
-            const name = document.getElementById('name').value;
-            const symbol = document.getElementById('symbol').value;
-            const supply = document.getElementById('supply').value;
-            const minting = document.getElementById('minting').checked;
-            const burning = document.getElementById('burning').checked;
-
+        connectWalletButton.addEventListener('click', async () => {
             try {
-                await ethereum.request({ method: 'eth_requestAccounts' });
+                const instance = await web3Modal.connect(); // Muestra la ventana modal para seleccionar la wallet
+                const provider = new ethers.providers.Web3Provider(instance);
+                const signer = provider.getSigner();
+                const address = await signer.getAddress();
 
-                const factory = new ethers.ContractFactory(/* ABI */, /* Bytecode */, signer);
-                const contract = await factory.deploy(name, symbol, supply, minting, burning);
+                console.log("Connected address:", address);
+                alert("Connected address: " + address);
 
-                alert(`Token created successfully! Contract Address: ${contract.address}`);
+                // Aquí puedes manejar el resto de la lógica con la dirección conectada
             } catch (error) {
-                console.error(error);
-                alert('Error creating token. Please try again.');
+                console.error("Could not connect wallet:", error);
             }
-        }
+        });
     </script>
 </body>
 </html>
