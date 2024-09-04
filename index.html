@@ -348,18 +348,15 @@ nav .links a {
     </form>
     </div>
 </body>
-     <script src="https://cdn.jsdelivr.net/npm/web3modal@1.9.2/dist/index.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.min.js"></script>
-
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/web3modal/1.9.7/web3modal.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
 
     <script>
-        const providerOptions = {
-            /* Aquí puedes agregar opciones para diferentes proveedores de wallets si es necesario */
-        };
+         const providerOptions = {}; // Aquí puedes agregar configuraciones adicionales si es necesario
 
         const web3Modal = new Web3Modal.default({
-            cacheProvider: false, // Deja en false para evitar la caché
+            cacheProvider: false, // Deja en false para evitar la cache
             providerOptions // Opciones para diferentes carteras
         });
 
@@ -375,8 +372,8 @@ nav .links a {
                 console.log("Connected address:", address);
                 alert("Connected address: " + address);
 
-                // Actualiza el texto y el estilo del botón
-                connectWalletButton.textContent = 'WEB3 ACTIVE';
+                // Cambiar el texto y el estilo del botón
+                connectWalletButton.textContent = 'Web3 Active';
                 connectWalletButton.classList.add('active');
 
                 // Aquí puedes manejar el resto de la lógica con la dirección conectada
