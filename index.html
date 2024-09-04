@@ -156,6 +156,21 @@ label {
     height: 20px; /* Tamaño del ícono, ajusta según sea necesario */
     vertical-align: middle; /* Alinea el ícono con el texto */
 }
+        /* Estilo por defecto de las etiquetas */
+.feature-label {
+    font-family: 'Press Start 2P', cursive;
+    color: #e0e0e0;
+    font-size: 1em;
+    transition: color 0.3s, transform 0.2s;
+}
+
+/* Estilo cuando el checkbox está seleccionado */
+input[type="checkbox"]:checked + .feature-label {
+    color: #ff00ff; /* Color destacado */
+    font-weight: bold;
+    transform: scale(1.1); /* Aumenta ligeramente el tamaño del texto */
+}
+
 
         p {
             font-size: 1.2em;
