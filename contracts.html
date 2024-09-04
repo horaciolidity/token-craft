@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscador de Contratos - Optimism</title>
+    <title>Contract Explorer - Optimism</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
@@ -121,7 +121,7 @@
 <body>
 
     <header>
-        <h1>Buscador de Contratos en la Red Optimism</h1>
+        <h1>Contract Explorer on the Optimism Network</h1>
         <nav>
             <ul>
                 <li><a href="#home">Home</a></li>
@@ -133,18 +133,21 @@
     </header>
 
     <section id="contracts">
-        <h2>Detalles del Contrato</h2>
+        <h2>Contract Details</h2>
+        <p>Enter a contract address to fetch detailed information about the smart contract deployed on the Optimism network. This information is crucial for developers and investors to verify the legitimacy and functionality of the contract.</p>
         <form id="contractForm">
-            <input type="text" id="contractAddress" placeholder="Dirección del contrato" required>
-            <button type="submit">Buscar</button>
+            <input type="text" id="contractAddress" placeholder="Enter contract address" required>
+            <button type="submit">Search</button>
         </form>
         <div id="contractDetails">
-            <!-- Aquí se mostrarán los detalles del contrato -->
+            <!-- Contract details will be displayed here -->
         </div>
     </section>
 
     <footer>
-        &copy; 2024 - Optimism Explorer
+        <p>&copy; 2024 - Optimism Explorer</p>
+        <p>Powered by Optimism and Etherscan APIs</p>
+        <p>Optimism is a Layer 2 scaling solution that enables fast and low-cost transactions on Ethereum, enhancing user experience and expanding the possibilities for decentralized applications.</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -156,9 +159,9 @@
         });
 
         async function fetchContractDetails(address) {
-            document.getElementById("contractDetails").innerHTML = `Buscando... <i class="fas fa-spinner"></i>`;
+            document.getElementById("contractDetails").innerHTML = `Searching... <i class="fas fa-spinner"></i>`;
             try {
-                const apiKey = 'TU_API_KEY_ETHERSCAN'; // Reemplaza con tu API key de Etherscan
+                const apiKey = 'YOUR_ETHERSCAN_API_KEY'; // Replace with your Etherscan API key
                 const apiUrl = `https://api-optimistic.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`;
                 
                 const response = await fetch(apiUrl);
@@ -168,21 +171,21 @@
                     const contractDetails = data.result[0];
                     displayContractDetails(contractDetails);
                 } else {
-                    document.getElementById("contractDetails").innerHTML = "No se encontraron detalles para este contrato.";
+                    document.getElementById("contractDetails").innerHTML = "No details found for this contract.";
                 }
             } catch (error) {
-                console.error('Error al obtener los detalles del contrato:', error);
-                document.getElementById("contractDetails").innerHTML = "Error al obtener los detalles del contrato.";
+                console.error('Error fetching contract details:', error);
+                document.getElementById("contractDetails").innerHTML = "Error fetching contract details.";
             }
         }
 
         function displayContractDetails(details) {
             const detailsHtml = `
-                <p><strong>Nombre:</strong> ${details.ContractName}</p>
-                <p><strong>Símbolo:</strong> ${details.Symbol}</p>
+                <p><strong>Contract Name:</strong> ${details.ContractName}</p>
+                <p><strong>Symbol:</strong> ${details.Symbol}</p>
                 <p><strong>Total Supply:</strong> ${details.TotalSupply}</p>
-                <p><strong>Fecha de Creación:</strong> ${new Date(details.Timestamp * 1000).toLocaleDateString()}</p>
-                <p><strong>Dirección del contrato:</strong> ${details.ContractAddress}</p>
+                <p><strong>Creation Date:</strong> ${new Date(details.Timestamp * 1000).toLocaleDateString()}</p>
+                <p><strong>Contract Address:</strong> ${details.ContractAddress}</p>
                 <div id="chartContainer"><canvas id="chart"></canvas></div>
             `;
             document.getElementById("contractDetails").innerHTML = detailsHtml;
