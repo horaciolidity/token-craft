@@ -4,77 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Buscador de Contratos - Optimism</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Press Start 2P', cursive;
+            background: linear-gradient(135deg, #1f1f1f, #121212);
+            color: #00ff84;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0d0d0d, #333333);
+            padding: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+        }
+
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: #00ff84;
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.3s, transform 0.2s;
+        }
+
+        nav ul li a:hover {
+            color: #ff00ff;
+            transform: scale(1.1);
+        }
+
+        section {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1f1f1f;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+            max-width: 600px;
+            color: #ffffff;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: calc(100% - 140px);
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 2px solid #00ff84;
+            background-color: #333333;
+            color: #ffffff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1em;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #00ff84;
+            color: #0d0d0d;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #ff00ff;
+            color: #ffffff;
+            transform: scale(1.1);
+        }
+
+        #contractDetails {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        #chartContainer {
+            margin-top: 30px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #0d0d0d, #333333);
+            color: #00ff84;
+            font-size: 0.8em;
+        }
+
+        .fa-spinner {
+            margin-left: 10px;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
-<style>
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 15px 0;
-    text-align: center;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-}
-
-section {
-    margin: 20px;
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form {
-    margin-bottom: 20px;
-}
-
-input[type="text"] {
-    padding: 10px;
-    width: 300px;
-    margin-right: 10px;
-}
-
-button {
-    padding: 10px 15px;
-    background-color: #333;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #555;
-}
-</style>
 
     <header>
         <h1>Buscador de Contratos en la Red Optimism</h1>
         <nav>
             <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#tokens">Tokens</a></li>
+                <li><a href="#liquidity">Liquidity</a></li>
                 <li><a href="#contracts">Contracts</a></li>
             </ul>
         </nav>
@@ -91,70 +143,76 @@ button:hover {
         </div>
     </section>
 
-    <script src="script.js"></script>
+    <footer>
+        &copy; 2024 - Optimism Explorer
+    </footer>
 
-</body>
-<script>
-document.getElementById("contractForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    const contractAddress = document.getElementById("contractAddress").value;
-    fetchContractDetails(contractAddress);
-});
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.getElementById("contractForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            const contractAddress = document.getElementById("contractAddress").value;
+            fetchContractDetails(contractAddress);
+        });
 
-async function fetchContractDetails(address) {
-    try {
-        const apiKey = 'TU_API_KEY_ETHERSCAN'; // Reemplaza con tu API key de Etherscan
-        const apiUrl = `https://api-optimistic.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`;
-        
-        const response = await fetch(apiUrl);
-        const data = await response.json();
+        async function fetchContractDetails(address) {
+            document.getElementById("contractDetails").innerHTML = `Buscando... <i class="fas fa-spinner"></i>`;
+            try {
+                const apiKey = 'TU_API_KEY_ETHERSCAN'; // Reemplaza con tu API key de Etherscan
+                const apiUrl = `https://api-optimistic.etherscan.io/api?module=contract&action=getsourcecode&address=${address}&apikey=${apiKey}`;
+                
+                const response = await fetch(apiUrl);
+                const data = await response.json();
 
-        if (data.status === "1") {
-            const contractDetails = data.result[0];
-            displayContractDetails(contractDetails);
-        } else {
-            document.getElementById("contractDetails").innerHTML = "No se encontraron detalles para este contrato.";
-        }
-    } catch (error) {
-        console.error('Error al obtener los detalles del contrato:', error);
-        document.getElementById("contractDetails").innerHTML = "Error al obtener los detalles del contrato.";
-    }
-}
-
-function displayContractDetails(details) {
-    const detailsHtml = `
-        <p><strong>Nombre:</strong> ${details.ContractName}</p>
-        <p><strong>Símbolo:</strong> ${details.Symbol}</p>
-        <p><strong>Total Supply:</strong> ${details.TotalSupply}</p>
-        <p><strong>Dirección del contrato:</strong> ${details.ContractAddress}</p>
-        <div id="chartContainer"><canvas id="chart"></canvas></div>
-    `;
-    document.getElementById("contractDetails").innerHTML = detailsHtml;
-    renderChart();
-}
-
-function renderChart() {
-    const ctx = document.getElementById('chart').getContext('2d');
-    new Chart(ctx, {
-        type: 'bar', 
-        data: {
-            labels: ['Ejemplo'], 
-            datasets: [{
-                label: 'Ejemplo de Chart',
-                data: [12],
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                borderColor: 'rgba(75, 192, 192, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+                if (data.status === "1") {
+                    const contractDetails = data.result[0];
+                    displayContractDetails(contractDetails);
+                } else {
+                    document.getElementById("contractDetails").innerHTML = "No se encontraron detalles para este contrato.";
                 }
+            } catch (error) {
+                console.error('Error al obtener los detalles del contrato:', error);
+                document.getElementById("contractDetails").innerHTML = "Error al obtener los detalles del contrato.";
             }
         }
-    });
-}
-</script>
+
+        function displayContractDetails(details) {
+            const detailsHtml = `
+                <p><strong>Nombre:</strong> ${details.ContractName}</p>
+                <p><strong>Símbolo:</strong> ${details.Symbol}</p>
+                <p><strong>Total Supply:</strong> ${details.TotalSupply}</p>
+                <p><strong>Fecha de Creación:</strong> ${new Date(details.Timestamp * 1000).toLocaleDateString()}</p>
+                <p><strong>Dirección del contrato:</strong> ${details.ContractAddress}</p>
+                <div id="chartContainer"><canvas id="chart"></canvas></div>
+            `;
+            document.getElementById("contractDetails").innerHTML = detailsHtml;
+            renderChart(details.TotalSupply);
+        }
+
+        function renderChart(totalSupply) {
+            const ctx = document.getElementById('chart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Total Supply'],
+                    datasets: [{
+                        label: 'Supply',
+                        data: [parseInt(totalSupply)],
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+</body>
 </html>
