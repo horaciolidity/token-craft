@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/web3modal/1.9.7/web3modal.min.css">
 
    
     <title>Create Your Token on Optimism</title>
@@ -355,35 +354,36 @@ nav .links a {
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
 
     <script>
-          document.addEventListener('DOMContentLoaded', () => {
-            const providerOptions = {}; // Aquí puedes agregar configuraciones adicionales si es necesario
+      const providerOptions = {
+            /* Aquí puedes agregar opciones para diferentes proveedores de wallets si es necesario */
+        };
 
-            const web3Modal = new Web3Modal.default({
-                cacheProvider: false, // Deja en false para evitar la cache
-                providerOptions // Opciones para diferentes carteras
-            });
+        const web3Modal = new Web3Modal.default({
+            cacheProvider: false, // Deja en false para evitar la caché
+            providerOptions // Opciones para diferentes carteras
+        });
 
-            const connectWalletButton = document.getElementById('connect-wallet');
+        const connectWalletButton = document.getElementById('connect-wallet');
 
-            connectWalletButton.addEventListener('click', async () => {
-                try {
-                    const instance = await web3Modal.connect(); // Muestra la ventana modal para seleccionar la wallet
-                    const provider = new ethers.providers.Web3Provider(instance);
-                    const signer = provider.getSigner();
-                    const address = await signer.getAddress();
+        connectWalletButton.addEventListener('click', async () => {
+            try {
+                const instance = await web3Modal.connect(); // Muestra la ventana modal para seleccionar la wallet
+                const provider = new ethers.providers.Web3Provider(instance);
+                const signer = provider.getSigner();
+                const address = await signer.getAddress();
 
-                    console.log("Connected address:", address);
-                    alert("Connected address: " + address);
+                console.log("Connected address:", address);
+                alert("Connected address: " + address);
 
-                    // Cambiar el texto y el estilo del botón
-                    connectWalletButton.textContent = 'Web3 Active';
-                    connectWalletButton.classList.add('active');
 
-                    // Aquí puedes manejar el resto de la lógica con la dirección conectada
-                } catch (error) {
-                    console.error("Could not connect wallet:", error);
-                }
-            });
+                // Cambiar el texto y el estilo del botón
+                connectWalletButton.textContent = 'Web3 Active';
+                connectWalletButton.classList.add('active');
+
+                // Aquí puedes manejar el resto de la lógica con la dirección conectada
+            } catch (error) {
+                console.error("Could not connect wallet:", error);
+            }
         });
     </script>
 </body>
