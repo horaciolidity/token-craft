@@ -348,35 +348,38 @@ nav .links a {
 </body>
     
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/web3modal/1.9.7/web3modal.min.js"></script>
 
 
     <script>
-        const providerOptions = {
-            /* Aquí puedes agregar opciones para diferentes proveedores de wallets si es necesario */
-        };
+        document.addEventListener('DOMContentLoaded', () => {
+            const connectWalletButton = document.getElementById('connect-wallet');
 
-        const web3Modal = new Web3Modal.default({
-            cacheProvider: false, // Deja en false para evitar la caché
-            providerOptions // Opciones para diferentes carteras
-        });
+            connectWalletButton.addEventListener('click', async () => {
+                if (window.ethereum) {
+                    try {
+                        // Solicitar la conexión a MetaMask
+                        await window.ethereum.request({ method: 'eth_requestAccounts' });
 
-        const connectWalletButton = document.getElementById('connect-wallet');
+                        // Crear una instancia de ethers.js
+                        const provider = new ethers.providers.Web3Provider(window.ethereum);
+                        const signer = provider.getSigner();
+                        const address = await signer.getAddress();
 
-        connectWalletButton.addEventListener('click', async () => {
-            try {
-                const instance = await web3Modal.connect(); // Muestra la ventana modal para seleccionar la wallet
-                const provider = new ethers.providers.Web3Provider(instance);
-                const signer = provider.getSigner();
-                const address = await signer.getAddress();
+                        console.log("Connected address:", address);
+                        alert("Connected address: " + address);
 
-                console.log("Connected address:", address);
-                alert("Connected address: " + address);
+                        // Cambiar el texto y el estilo del botón
+                        connectWalletButton.textContent = 'Web3 Active';
+                        connectWalletButton.classList.add('active');
 
-                // Aquí puedes manejar el resto de la lógica con la dirección conectada
-            } catch (error) {
-                console.error("Could not connect wallet:", error);
-            }
+                        // Aquí puedes manejar el resto de la lógica con la dirección conectada
+                    } catch (error) {
+                        console.error("Could not connect wallet:", error);
+                    }
+                } else {
+                    alert("MetaMask not found. Please install MetaMask.");
+                }
+            });
         });
     </script>
 </body>
