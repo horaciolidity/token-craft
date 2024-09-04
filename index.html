@@ -156,7 +156,7 @@ label {
     height: 20px; /* Tamaño del ícono, ajusta según sea necesario */
     vertical-align: middle; /* Alinea el ícono con el texto */
 }
-        /* Estilo por defecto de las etiquetas */
+/* Estilo por defecto de las etiquetas */
 .feature-label {
     font-family: 'Press Start 2P', cursive;
     color: #e0e0e0;
@@ -165,11 +165,12 @@ label {
 }
 
 /* Estilo cuando el checkbox está seleccionado */
-input[type="checkbox"]:checked + .feature-label {
-    color: #262626; /* Color destacado */
+input[type="checkbox"]:checked + label.feature-label {
+    color: #ff00ff; /* Color lila destacado */
     font-weight: bold;
     transform: scale(1.1); /* Aumenta ligeramente el tamaño del texto */
 }
+
 
 
         p {
@@ -327,14 +328,17 @@ nav .links a {
         <input type="number" id="supply" required><br>
 
        
-        <label>Select Features:</label><br>
-        <input type="checkbox" id="minting" value="minting"> Minting<br>
-        <input type="checkbox" id="burning" value="burning"> Burning<br>
+       <label>Select Features:</label><br>
+<input type="checkbox" id="minting" value="minting">
+<label for="minting" class="feature-label">Minting</label><br>
+<input type="checkbox" id="burning" value="burning">
+<label for="burning" class="feature-label">Burning</label><br>
+
 
       
 
         
-        <p id="cost">Total Cost: $100 USD</p>
+        <p id="cost">Total Cost: $free</p>
         <button type="submit" id="createTokenBtn">Create Token</button>
          
     </form>
