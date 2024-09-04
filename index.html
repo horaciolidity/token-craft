@@ -293,49 +293,15 @@ nav .links a {
     }
 }
          
-        .contract-history h2 {
-            font-size: 1.5em;
-            margin-bottom: 20px;
-            color: #ff00ff;
+      .contract-item.highlight {
+            background-color: yellow; /* Resaltar con un fondo amarillo */
+            transition: background-color 0.5s ease-in-out;
         }
-
         .contract-item {
-            margin-bottom: 15px;
-            padding: 10px;
-            background-color: #1e1e2e;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
+            /* Otros estilos para contract-item */
         }
-
-        .contract-item.highlight {
-            background-color: #00ff84;
-            color: #121212;
-        }
-
-        .contract-item p {
-            margin: 0;
-            font-size: 0.9em;
-        }
-
-        .contract-item span {
-            display: block;
-            font-size: 0.8em;
-            color: #cccccc;
-        }
-
-        @keyframes slideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .contract-item.new {
-            animation: slideUp 0.5s ease-in-out;
+        .active {
+            background-color: green; /* Estilo para el botón activo */
         }
 
 
@@ -387,7 +353,7 @@ nav .links a {
         
         <p id="cost">Total Cost: $free</p>
         <button type="submit" id="createTokenBtn">Create Token</button>
-           <div id="contractItem" class="contract-item"></div>
+    <div id="contractItem" class="contract-item"></div>
 
     </form>
       
@@ -401,6 +367,19 @@ nav .links a {
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const connectWalletButton = document.getElementById('connect-wallet');
+            const contractItem = document.getElementById('contractItem');
+            const randomAddresses = [
+                "0x1A2b3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T",
+                "0x9F8E7D6C5B4A3B2C1D0E9F8E7D6C5B4A3B2C1D0E",
+                "0x2B4C5D6E7F8G9H0I1J2K3L4M5N6O7P8Q9R0S1T2U",
+                "0x3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V",
+                "0x4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W",
+                "0x5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X",
+                "0x6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y",
+                "0x7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z",
+                "0x8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A",
+                "0x9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A8B"
+            ];
 
             connectWalletButton.addEventListener('click', async () => {
                 if (window.ethereum) {
@@ -420,7 +399,6 @@ nav .links a {
                         connectWalletButton.textContent = 'Web3 Active';
                         connectWalletButton.classList.add('active');
 
-                        // Aquí puedes manejar el resto de la lógica con la dirección conectada
                     } catch (error) {
                         console.error("Could not connect wallet:", error);
                     }
@@ -429,42 +407,29 @@ nav .links a {
                 }
             });
 
-        const contractsList = document.getElementById('contractsList');
-        const randomAddresses = [
-            "0x1A2b3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T",
-            "0x9F8E7D6C5B4A3B2C1D0E9F8E7D6C5B4A3B2C1D0E",
-            "0x2B4C5D6E7F8G9H0I1J2K3L4M5N6O7P8Q9R0S1T2U",
-            "0x3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V",
-            "0x4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W",
-            "0x5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X",
-            "0x6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y",
-            "0x7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z",
-            "0x8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A",
-            "0x9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A8B"
-        ];
+            function updateContract() {
+                const randomAddress = randomAddresses[Math.floor(Math.random() * randomAddresses.length)];
+                const currentTime = new Date();
+                const formattedTime = `${currentTime.getHours()}:${String(currentTime.getMinutes()).padStart(2, '0')}`;
+                const formattedDate = currentTime.toLocaleDateString();
 
-       function updateContract() {
-    const randomAddress = randomAddresses[Math.floor(Math.random() * randomAddresses.length)];
-    const currentTime = new Date();
-    const formattedTime = `${currentTime.getHours()}:${String(currentTime.getMinutes()).padStart(2, '0')}`;
-    const formattedDate = currentTime.toLocaleDateString();
+                contractItem.innerHTML = `
+                    <p>${randomAddress}</p>
+                    <span>${formattedDate} ${formattedTime}</span>
+                `;
 
-    contractItem.innerHTML = `
-        <p>${randomAddress}</p>
-        <span>${formattedDate} ${formattedTime}</span>
-    `;
+                // Resaltar la dirección
+                contractItem.classList.add('highlight');
 
-    // Resaltar la dirección
-    contractItem.classList.add('highlight');
+                // Eliminar el resaltado después de unos segundos
+                setTimeout(() => {
+                    contractItem.classList.remove('highlight');
+                }, 3000);
+            }
 
-    // Eliminar el resaltado después de unos segundos
-    setTimeout(() => {
-        contractItem.classList.remove('highlight');
-    }, 3000);
-}
-
-// Actualizar la dirección cada 9 segundos
-setInterval(updateContract, 4000);
+            // Actualizar la dirección cada 9 segundos
+            setInterval(updateContract, 2000);
+        });
     </script>
 </body>
 </html>
