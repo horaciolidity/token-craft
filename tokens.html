@@ -5,11 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tokens - Cyberpunk Exchange</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
         body {
             background-color: #0d0d0d;
-            font-family: 'Roboto', sans-serif;
-            color: #e0e0e0;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
             padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc;
+            margin-bottom: 50px;
         }
 
         .token-list {
@@ -17,74 +27,143 @@
             margin: auto;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 30px;
         }
 
         .token-item {
-            background: linear-gradient(145deg, #202020, #2e2e2e);
+            background: rgba(25, 25, 25, 0.9);
+            border: 1px solid #00ffcc;
             border-radius: 15px;
             padding: 20px;
             color: #fff;
-            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.8), 0 0 30px rgba(255, 0, 255, 0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
         .token-item:hover {
             transform: scale(1.05);
-            background-color: #ff6600; /* Efecto cyberpunk brillante */
+            box-shadow: 0 0 20px rgba(255, 0, 255, 1), 0 0 40px rgba(0, 255, 204, 1);
+        }
+
+        .token-name {
+            font-size: 1.7rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 5px #00ffcc;
         }
 
         .token-item p {
             margin: 10px 0;
-        }
-
-        .token-name {
-            font-size: 1.5rem;
-            color: #00ffff;
+            color: #00ffcc;
         }
 
         .token-buttons {
-            margin-top: 10px;
             display: flex;
             justify-content: space-between;
+            margin-top: 15px;
         }
 
         .token-buttons button {
             padding: 10px 20px;
-            font-size: 0.9rem;
-            background-color: #0077ff;
-            border: none;
-            border-radius: 8px;
-            color: white;
+            font-size: 1rem;
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #ff00ff;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
         .token-buttons button:hover {
-            background-color: #00ccff;
+            background-color: #ff00ff;
+            box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc;
         }
 
+        /* Estilo para el botón de crear un token */
         .create-token {
-            background-color: #ff0099;
-            border: 2px dashed #ffcc00;
+            background: linear-gradient(145deg, #1a1a1a, #333333);
+            border: 2px dashed #ff00ff;
             text-align: center;
+            padding: 30px;
+            grid-column: span 2;
+            position: relative;
+            overflow: hidden;
         }
 
-        .create-token:hover {
-            background-color: #ff6600;
+        .create-token h2 {
+            font-size: 2rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc;
         }
 
         .create-token button {
-            background-color: #e600ff;
-            color: #fff;
+            background-color: #00ffcc;
+            color: #000;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.4s ease, transform 0.3s ease;
         }
+
+        .create-token button:hover {
+            background-color: #ff00ff;
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffcc;
+        }
+
+        /* Brillo retrofuturista */
+        .create-token:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 0, 255, 0.2);
+            transform: skewX(-20deg);
+            transition: left 0.7s ease;
+        }
+
+        .create-token:hover:before {
+            left: 150%;
+        }
+        .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #ff007f; /* Color cyberpunk */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #ff66b2; /* Efecto hover */
+    transform: scale(1.1); /* Agranda un poco el botón al pasar el mouse */
+}
+
+.back-button:active {
+    background-color: #e6006f; /* Color al hacer clic */
+}
+
     </style>
 </head>
 <body>
+    <button class="back-button" onclick="goBack()">⟵ Back</button>
+
     <h1>Available Tokens</h1>
     <div class="token-list">
         <!-- Token Item 1 -->
         <div class="token-item">
+                <div class="token-item" style="background-image: url('path-to-your-image1.jpg');">
+
             <h2 class="token-name">CyberDragons</h2>
             <p><strong>Date Created:</strong> 2024-09-05</p>
             <p><strong>Liquidity:</strong> 500 ETH</p>
@@ -97,6 +176,8 @@
 
         <!-- Token Item 2 -->
         <div class="token-item">
+                <div class="token-item" style="background-image: url('path-to-your-image1.jpg');">
+
             <h2 class="token-name">EtherPhoenix</h2>
             <p><strong>Date Created:</strong> 2024-08-25</p>
             <p><strong>Liquidity:</strong> 300 ETH</p>
@@ -109,6 +190,8 @@
 
         <!-- Token Item 3 -->
         <div class="token-item">
+                <div class="token-item" style="background-image: url('path-to-your-image1.jpg');">
+
             <h2 class="token-name">NeonStorm</h2>
             <p><strong>Date Created:</strong> 2024-09-01</p>
             <p><strong>Liquidity:</strong> 650 ETH</p>
@@ -121,6 +204,8 @@
 
         <!-- Token Item 4 -->
         <div class="token-item">
+                <div class="token-item" style="background-image: url('path-to-your-image1.jpg');">
+
             <h2 class="token-name">MoonVortex</h2>
             <p><strong>Date Created:</strong> 2024-08-15</p>
             <p><strong>Liquidity:</strong> 400 ETH</p>
@@ -133,6 +218,8 @@
 
         <!-- Token Item 5 -->
         <div class="token-item">
+                <div class="token-item" style="background-image: url('path-to-your-image1.jpg');">
+
             <h2 class="token-name">QuantumOasis</h2>
             <p><strong>Date Created:</strong> 2024-09-03</p>
             <p><strong>Liquidity:</strong> 550 ETH</p>
@@ -145,6 +232,8 @@
 
         <!-- Token Item 6 -->
         <div class="token-item">
+                <div class="token-item" style="background-image: url('path-to-your-image1.jpg');">
+
             <h2 class="token-name">CosmicWhales</h2>
             <p><strong>Date Created:</strong> 2024-09-07</p>
             <p><strong>Liquidity:</strong> 750 ETH</p>
@@ -157,6 +246,8 @@
 
         <!-- Token Item 7 -->
         <div class="token-item">
+                <div class="token-item" style="background-image: url('path-to-your-image1.jpg');">
+
             <h2 class="token-name">SolarShards</h2>
             <p><strong>Date Created:</strong> 2024-08-30</p>
             <p><strong>Liquidity:</strong> 320 ETH</p>
@@ -168,10 +259,15 @@
         </div>
 
         <!-- Create Your Token Now -->
-        <div class="token-item create-token">
+    <div class="token-item create-token" style="background-image: url('path-to-your-image7.jpg');">
             <h2>CREATE YOUR TOKEN NOW</h2>
             <button>Create</button>
         </div>
     </div>
 </body>
+            <script>
+  function goBack() {
+    window.history.back();
+  }
+</script>
 </html>
