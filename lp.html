@@ -87,6 +87,30 @@ footer {
     padding: 1em;
     text-align: center;
 }
+      .back-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #ff007f; /* Color cyberpunk */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: #ff66b2; /* Efecto hover */
+    transform: scale(1.1); /* Agranda un poco el botón al pasar el mouse */
+}
+
+.back-button:active {
+    background-color: #e6006f; /* Color al hacer clic */
+}
+
 
 
 
@@ -94,6 +118,8 @@ footer {
     
   </style>
 <body>
+    <button class="back-button" onclick="goBack()">⟵ Back</button>
+
     <!-- Header -->
     <header class="nav-bar">
         <div class="logo">CyberSwap</div>
@@ -146,4 +172,10 @@ footer {
         <p>&copy; 2024 CyberSwap Exchange</p>
     </footer>
 </body>
+    
+<script>
+  function goBack() {
+    window.history.back();
+  }
+</script>
 </html>
