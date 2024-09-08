@@ -3,454 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-   
-    <title>Create Your Token on Optimism</title>
+    <title>Tokens - Cyberpunk Exchange</title>
     <style>
-/* Estilo General */
-html, body {
-    font-family: 'Press Start 2P', cursive;
-    background-color: #1e1e2e;
-    color: #00ff84;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Evita el desplazamiento horizontal */
-    height: 100%; /* Asegura que el contenido ocupe el 100% del alto de la ventana */
-}
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-main {
-    margin-top: 150px; /* Ajusta esto según la altura de tu menú y el título principal */
-}
+        body {
+            background-color: #0d0d0d;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
+            padding: 20px;
+        }
+
         h1 {
             text-align: center;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 0px #ff00ff, 4px 4px 0px #0000ff;
+            font-size: 3rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc;
+            margin-bottom: 50px;
         }
 
-  form {
-    background: linear-gradient(135deg, #121212 25%, #1e1e2e 75%);
-    padding: 30px;
-    border-radius: 10px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.8);
-    animation: fadeIn 1s ease-in-out;
-    position: relative;
-    overflow: hidden;
-    margin-top: 300px; /* Igual a la altura del menú */
-}
-
-form::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: repeating-linear-gradient(
-        45deg,
-        rgba(0, 255, 132, 0.15) 0,
-        rgba(0, 255, 132, 0.15) 10px,
-        rgba(255, 0, 255, 0.15) 10px,
-        rgba(255, 0, 255, 0.15) 20px
-    ),
-    repeating-linear-gradient(
-        135deg,
-        rgba(0, 255, 255, 0.1) 0,
-        rgba(0, 255, 255, 0.1) 10px,
-        rgba(255, 255, 0, 0.1) 10px,
-        rgba(255, 255, 0, 0.1) 20px
-    );
-    opacity: 0.3; /* Ajusta la opacidad para más o menos intensidad */
-    z-index: 0; /* Asegura que esté detrás del contenido del formulario */
-}
-
-form::after {
-    content: '';
-    position: absolute;
-    top: -20%;
-    left: -20%;
-    width: 140%;
-    height: 140%;
-    background: radial-gradient(circle, rgba(0, 255, 255, 0.2), transparent 40%),
-                radial-gradient(circle, rgba(255, 0, 255, 0.2), transparent 50%);
-    background-size: 60px 60px;
-    background-position: center;
-    animation: pixelWave 15s infinite alternate;
-    z-index: 0;
-}
-
-@keyframes pixelWave {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(20px, 20px);
-    }
-}
-
-/* Asegura que el contenido del formulario esté por encima del fondo */
-form > * {
-    position: relative;
-    z-index: 1;
-}
-
-
-  input[type="text"],
-        input[type="number"],
-        select {
-            width: 60%;
-            padding: 12px 15px;
-            margin-bottom: 15px;
-            border: 2px solid #444;
-            border-radius: 8px;
-            background-color: #333;
-            color: #e0e0e0;
-            font-family: 'Press Start 2P', cursive; /* Fuente retro estilo robot */
-            font-size: 1em;
-            font-weight: 400;
-            transition: all 0.3s;
-            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        .token-list {
+            width: 80%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
         }
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        select:focus {
-            border-color: #00ff84;
-            box-shadow: 0 0 8px rgba(0, 255, 132, 0.6), inset 0 1px 3px rgba(0, 255, 132, 0.3);
-            outline: none;
-            background-color: #1a1a1a;
-            color: #ffffff;
+        .token-item {
+            background: rgba(25, 25, 25, 0.9);
+            border: 1px solid #00ffcc;
+            border-radius: 15px;
+            padding: 20px;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(0, 255, 204, 0.8), 0 0 30px rgba(255, 0, 255, 0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        input[type="checkbox"] {
-            margin-right: 12px;
-            accent-color: #00ff84; /* Estilo más visible del checkbox */
-        }
-        input[type="text"]:hover,
-input[type="number"]:hover,
-select:hover {
-    border-color: #ff00ff; /* Color del borde al pasar el mouse */
-    box-shadow: 0 0 8px rgba(255, 0, 255, 0.6), inset 0 1px 3px rgba(255, 0, 255, 0.3);
-    background-color: #262626; /* Cambio de color de fondo al pasar el mouse */
-    color: #ffffff; /* Color del texto */
-}
-
-
-
-label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #00ff84; /* Color rojo */
-    font-size: 1.1em;
-}
-        label img {
-    margin-left: 10px; /* Espacio entre el texto y el ícono */
-    height: 20px; /* Tamaño del ícono, ajusta según sea necesario */
-    vertical-align: middle; /* Alinea el ícono con el texto */
-}
-/* Estilo por defecto de las etiquetas */
-.feature-label {
-    font-family: 'Press Start 2P', cursive;
-    color: #e0e0e0;
-    font-size: 1em;
-    transition: color 0.3s, transform 0.2s;
-}
-
-/* Estilo cuando el checkbox está seleccionado */
-input[type="checkbox"]:checked + label.feature-label {
-    color: #ff00ff; /* Color lila destacado */
-    font-weight: bold;
-    transform: scale(1.1); /* Aumenta ligeramente el tamaño del texto */
-}
-
-
-
-        p {
-            font-size: 1.2em;
-            font-weight: bold;
-            margin-top: 20px;
-            text-align: center;
-        }
-        #imagePreview {
-            border: 2px solid #00ff84;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #00ff84;
-            color: #121212;
-            padding: 15px 20px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s, transform 0.2s;
-        }
-
-        button:hover {
-            background-color: #00cc6a;
+        .token-item:hover {
             transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 1), 0 0 40px rgba(0, 255, 204, 1);
         }
 
-        button:disabled {
-            background-color: #666;
-            cursor: not-allowed;
+        .token-name {
+            font-size: 1.7rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 5px #00ffcc;
         }
 
-        /* Estilo del menú */
-       /* Estilo del menú */
-/* Estilos generales del menú */
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(45deg, #0d0d0d, #333333);
-    border-bottom: 2px solid #00ff84;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
-    z-index: 1000; /* Asegura que el menú esté siempre encima de otros elementos */
-    overflow-x: auto; /* Permite el desplazamiento horizontal */
-    white-space: nowrap; /* Evita que los elementos del menú se envuelvan en una nueva línea */
-}
-        nav .connect-wallet {
-    background-color: #00ff84;
-    color: #0d0d0d;
-    border: none;
-    padding: 10px 20px;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1.2em;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    margin: 0 15px;
-}
+        .token-item p {
+            margin: 10px 0;
+            color: #00ffcc;
+        }
 
-nav .connect-wallet:hover {
-    background-color: #ff00ff;
-    color: #ffffff;
-    transform: scale(1.1);
-}
-       
+        .token-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
 
-nav a {
-    color: #00ff84;
-    text-decoration: none;
-    font-family: 'Press Start 2P', cursive;
-    font-size: 1.2em;
-    margin: 0 15px;
-    transition: color 0.3s, transform 0.2s;
-}
+        .token-buttons button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: transparent;
+            color: #fff;
+            border: 2px solid #ff00ff;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
 
-nav a:hover {
-    color: #ff00ff;
-    transform: scale(1.1);
-}
+        .token-buttons button:hover {
+            background-color: #ff00ff;
+            box-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc;
+        }
 
-nav .logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #00ff84;
-}
+        /* Estilo para el botón de crear un token */
+        .create-token {
+            background: linear-gradient(145deg, #1a1a1a, #333333);
+            border: 2px dashed #ff00ff;
+            text-align: center;
+            padding: 30px;
+            grid-column: span 2;
+            position: relative;
+            overflow: hidden;
+        }
 
-nav .links {
-    display: flex;
-    align-items: center;
-    overflow-x: auto; /* Permite el desplazamiento horizontal en móviles */
-}
+        .create-token h2 {
+            font-size: 2rem;
+            color: #ff00ff;
+            text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffcc;
+        }
 
-nav .links a {
-    margin: 0 10px;
-}
+        .create-token button {
+            background-color: #00ffcc;
+            color: #000;
+            font-size: 1.2rem;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.4s ease, transform 0.3s ease;
+        }
 
-/* Estilos específicos para móviles */
-@media (max-width: 768px) {
-    nav {
-        padding: 10px;
-    }
+        .create-token button:hover {
+            background-color: #ff00ff;
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px #ff00ff, 0 0 40px #00ffcc;
+        }
 
-    nav .links {
-        justify-content: flex-start;
-        width: auto;
-        flex-wrap: nowrap;
-    }
+        /* Brillo retrofuturista */
+        .create-token:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: rgba(255, 0, 255, 0.2);
+            transform: skewX(-20deg);
+            transition: left 0.7s ease;
+        }
 
-    nav .logo {
-        margin-right: auto; /* Asegura que el logo esté a la izquierda y el resto se desplace */
-    }
-}
-         
-  .contract-item {
-    font-size: 8px; /* Tamaño de fuente más pequeño */
-    padding: 8px; /* Espaciado interno */
-    margin: 5px 0; /* Margen superior e inferior */
-    border-radius: 4px; /* Bordes redondeados */
-    border: 1px solid #ccc; /* Borde sutil */
-    background-color: #f9f9f9; /* Fondo claro */
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Transiciones suaves */
-}
-
-/* Estilo cuando el contract-item está resaltado */
-.contract-item.highlight {
-    background-color: #ffcc00; /* Fondo amarillo brillante */
-    color: #000; /* Texto negro para buen contraste */
-    transform: scale(1.05); /* Aumentar ligeramente el tamaño */
-    border-color: #ffcc00; /* Color del borde coincide con el fondo */
-}
-
-/* Estilo para el botón activo */
-.active {
-    background-color: #28a745; /* Verde más vibrante para el botón activo */
-    color: #fff; /* Texto blanco */
-    border: none; /* Sin borde */
-    padding: 10px 20px; /* Mayor padding */
-    font-size: 10px; /* Tamaño de fuente más grande */
-    border-radius: 8px; /* Bordes más redondeados */
-    cursor: pointer; /* Puntero para indicar que es clickeable */
-    transition: background-color 0.3s ease; /* Transición suave para el fondo */
-}
-
-
+        .create-token:hover:before {
+            left: 150%;
+        }
     </style>
-    <!-- Fuente Google Criptopunk -->
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div>
-   <nav>
-    <div class="links">
-        <a href="#home">HOME</a>
-        <a href="https://token-craft-three.vercel.app/tokens.html">TOKENS</a>
-        <a href="https://token-craft-three.vercel.app/lp.html">LIQUIDITY</a>
-        <a href="https://token-craft-three.vercel.app/contracts.html">CONTRACTS</a>
-        <button id="connect-wallet" class="connect-wallet">CONNECT WALLET</button>
+    <h1>Available Tokens</h1>
+    <div class="token-list">
+        <!-- Token Item 1 -->
+        <div class="token-item">
+            <h2 class="token-name">CyberDragons</h2>
+            <p><strong>Date Created:</strong> 2024-09-05</p>
+            <p><strong>Liquidity:</strong> 500 ETH</p>
+            <p><strong>Holding:</strong> 25,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 2 -->
+        <div class="token-item">
+            <h2 class="token-name">EtherPhoenix</h2>
+            <p><strong>Date Created:</strong> 2024-08-25</p>
+            <p><strong>Liquidity:</strong> 300 ETH</p>
+            <p><strong>Holding:</strong> 15,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 3 -->
+        <div class="token-item">
+            <h2 class="token-name">NeonStorm</h2>
+            <p><strong>Date Created:</strong> 2024-09-01</p>
+            <p><strong>Liquidity:</strong> 650 ETH</p>
+            <p><strong>Holding:</strong> 30,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 4 -->
+        <div class="token-item">
+            <h2 class="token-name">MoonVortex</h2>
+            <p><strong>Date Created:</strong> 2024-08-15</p>
+            <p><strong>Liquidity:</strong> 400 ETH</p>
+            <p><strong>Holding:</strong> 18,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 5 -->
+        <div class="token-item">
+            <h2 class="token-name">QuantumOasis</h2>
+            <p><strong>Date Created:</strong> 2024-09-03</p>
+            <p><strong>Liquidity:</strong> 550 ETH</p>
+            <p><strong>Holding:</strong> 27,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 6 -->
+        <div class="token-item">
+            <h2 class="token-name">CosmicWhales</h2>
+            <p><strong>Date Created:</strong> 2024-09-07</p>
+            <p><strong>Liquidity:</strong> 750 ETH</p>
+            <p><strong>Holding:</strong> 35,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 7 -->
+        <div class="token-item">
+            <h2 class="token-name">SolarShards</h2>
+            <p><strong>Date Created:</strong> 2024-08-30</p>
+            <p><strong>Liquidity:</strong> 320 ETH</p>
+            <p><strong>Holding:</strong> 12,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Create Your Token Now -->
+        <div class="token-item create-token">
+            <h2>CREATE YOUR TOKEN NOW</h2>
+            <button>Create</button>
+        </div>
     </div>
-</nav>
-
-
-    <form id="tokenForm">
-        <h1>Create Your Token</h1>
-        
-<label for="network">
-    Network: Optimism
-    <img src="https://token-craft-three.vercel.app/op.png" alt="Optimism Icon">
-</label>
-        <input type="hidden" id="network" value="optimism"><br>
-        
-        <label for="name">Token Name:</label>
-        <input type="text" id="name" required><br>
-        
-        <label for="symbol">Symbol:</label>
-        <input type="text" id="symbol" required><br>
-        
-        <label for="supply">Total Supply:</label>
-        <input type="number" id="supply" required><br>
-
-       
-       <label>Select Features:</label><br>
-<input type="checkbox" id="minting" value="minting">
-<label for="minting" class="feature-label">Minting</label><br>
-<input type="checkbox" id="burning" value="burning">
-<label for="burning" class="feature-label">Burning</label><br>
-
-
-      
-
-        
-        <p id="cost">Total Cost: $free</p>
-        <button type="submit" id="createTokenBtn">Create Token</button>
-            <div class="contract-item">Recent proyect</div>
-
-    <div id="contractItem" class="contract-item"></div>
-
-    </form>
-      
-       
-    </div>
-</body>
-    
-    <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.0/dist/ethers.umd.min.js"></script>
-
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const connectWalletButton = document.getElementById('connect-wallet');
-            const contractItem = document.getElementById('contractItem');
-            const randomAddresses = [
-                "0x1A2b3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T",
-                "0x9F8E7D6C5B4A3B2C1D0E9F8E7D6C5B4A3B2C1D0E",
-                "0x2B4C5D6E7F8G9H0I1J2K3L4M5N6O7P8Q9R0S1T2U",
-                "0x3C4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V",
-                "0x4D5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W",
-                "0x5E6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X",
-                "0x6F7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y",
-                "0x7G8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z",
-                "0x8H9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A",
-                "0x9I0J1K2L3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A8B"
-            ];
-
-            connectWalletButton.addEventListener('click', async () => {
-                if (window.ethereum) {
-                    try {
-                        // Solicitar la conexión a MetaMask
-                        await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-                        // Crear una instancia de ethers.js
-                        const provider = new ethers.providers.Web3Provider(window.ethereum);
-                        const signer = provider.getSigner();
-                        const address = await signer.getAddress();
-
-                        console.log("Connected address:", address);
-                        alert("Connected address: " + address);
-
-                        // Cambiar el texto y el estilo del botón
-                        connectWalletButton.textContent = 'Web3 Active';
-                        connectWalletButton.classList.add('active');
-
-                    } catch (error) {
-                        console.error("Could not connect wallet:", error);
-                    }
-                } else {
-                    alert("MetaMask not found. Please install MetaMask.");
-                }
-            });
-
-            function updateContract() {
-                const randomAddress = randomAddresses[Math.floor(Math.random() * randomAddresses.length)];
-                const currentTime = new Date();
-                const formattedTime = `${currentTime.getHours()}:${String(currentTime.getMinutes()).padStart(2, '0')}`;
-                const formattedDate = currentTime.toLocaleDateString();
-
-                contractItem.innerHTML = `
-                    <p>${randomAddress}</p>
-                    <span>${formattedDate} ${formattedTime}</span>
-                `;
-
-                // Resaltar la dirección
-                contractItem.classList.add('highlight');
-
-                // Eliminar el resaltado después de unos segundos
-                setTimeout(() => {
-                    contractItem.classList.remove('highlight');
-                }, 3000);
-            }
-
-            // Actualizar la dirección cada 9 segundos
-            setInterval(updateContract, 2000);
-        });
-    </script>
 </body>
 </html>
