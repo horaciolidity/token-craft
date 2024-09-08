@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tokens - Cyberpunk Exchange</title>
+    <style>
+        body {
+            background-color: #0d0d0d;
+            font-family: 'Roboto', sans-serif;
+            color: #e0e0e0;
+            padding: 20px;
+        }
+
+        .token-list {
+            width: 80%;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .token-item {
+            background: linear-gradient(145deg, #202020, #2e2e2e);
+            border-radius: 15px;
+            padding: 20px;
+            color: #fff;
+            box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .token-item:hover {
+            transform: scale(1.05);
+            background-color: #ff6600; /* Efecto cyberpunk brillante */
+        }
+
+        .token-item p {
+            margin: 10px 0;
+        }
+
+        .token-name {
+            font-size: 1.5rem;
+            color: #00ffff;
+        }
+
+        .token-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .token-buttons button {
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            background-color: #0077ff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .token-buttons button:hover {
+            background-color: #00ccff;
+        }
+
+        .create-token {
+            background-color: #ff0099;
+            border: 2px dashed #ffcc00;
+            text-align: center;
+        }
+
+        .create-token:hover {
+            background-color: #ff6600;
+        }
+
+        .create-token button {
+            background-color: #e600ff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Available Tokens</h1>
+    <div class="token-list">
+        <!-- Token Item 1 -->
+        <div class="token-item">
+            <h2 class="token-name">CyberDragons</h2>
+            <p><strong>Date Created:</strong> 2024-09-05</p>
+            <p><strong>Liquidity:</strong> 500 ETH</p>
+            <p><strong>Holding:</strong> 25,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 2 -->
+        <div class="token-item">
+            <h2 class="token-name">EtherPhoenix</h2>
+            <p><strong>Date Created:</strong> 2024-08-25</p>
+            <p><strong>Liquidity:</strong> 300 ETH</p>
+            <p><strong>Holding:</strong> 15,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 3 -->
+        <div class="token-item">
+            <h2 class="token-name">NeonStorm</h2>
+            <p><strong>Date Created:</strong> 2024-09-01</p>
+            <p><strong>Liquidity:</strong> 650 ETH</p>
+            <p><strong>Holding:</strong> 30,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 4 -->
+        <div class="token-item">
+            <h2 class="token-name">MoonVortex</h2>
+            <p><strong>Date Created:</strong> 2024-08-15</p>
+            <p><strong>Liquidity:</strong> 400 ETH</p>
+            <p><strong>Holding:</strong> 18,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 5 -->
+        <div class="token-item">
+            <h2 class="token-name">QuantumOasis</h2>
+            <p><strong>Date Created:</strong> 2024-09-03</p>
+            <p><strong>Liquidity:</strong> 550 ETH</p>
+            <p><strong>Holding:</strong> 27,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 6 -->
+        <div class="token-item">
+            <h2 class="token-name">CosmicWhales</h2>
+            <p><strong>Date Created:</strong> 2024-09-07</p>
+            <p><strong>Liquidity:</strong> 750 ETH</p>
+            <p><strong>Holding:</strong> 35,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Token Item 7 -->
+        <div class="token-item">
+            <h2 class="token-name">SolarShards</h2>
+            <p><strong>Date Created:</strong> 2024-08-30</p>
+            <p><strong>Liquidity:</strong> 320 ETH</p>
+            <p><strong>Holding:</strong> 12,000 tokens</p>
+            <div class="token-buttons">
+                <button>Join Project</button>
+                <button>Share Project</button>
+            </div>
+        </div>
+
+        <!-- Create Your Token Now -->
+        <div class="token-item create-token">
+            <h2>CREATE YOUR TOKEN NOW</h2>
+            <button>Create</button>
+        </div>
+    </div>
+</body>
+</html>
